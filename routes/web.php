@@ -17,8 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/make-request', 'UserRequestController@add')->name('request.add');
+Route::get('/add-proposal', 'ProposalController@add')->name('proposal.add');
 
-Route::post('/user-request/store', 'UserRequestController@store');
+Route::post('/proposal/store', 'ProposalController@store');
 
-Route::get('/user-request/all', 'UserRequestController@index')->name('request.all');
+Route::get('/proposal/all', 'ProposalController@index')->name('proposal.all');

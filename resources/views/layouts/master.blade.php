@@ -25,7 +25,7 @@
                 <a class="nav-link" href="{{route('home')}}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('request.all')}}">Requests</a>
+                <a class="nav-link" href="{{route('proposal.all')}}">Proposals</a>
             </li>
         </ul>
     </div>

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Proposals;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserRequest extends Model
+class ProposalEloquent extends Model
 {
-    protected $table = 'requests';
+    protected $table = 'proposals';
 
     protected $primaryKey = 'id';
-	
+
 	protected $fillable = [
 		'name',
 		'title',

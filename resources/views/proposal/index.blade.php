@@ -9,11 +9,11 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($userRequests as $data)
+        @foreach($entities as $data)
             <tr>
-                <th scope="row">{{ $data->id }}</th>
-                <td>{{ $data->name }}</td>
-                <td>{{ $data->title }}</td>
+                <th scope="row">{{ $data->getId() }}</th>
+                <td>{{ $data->getName() }}</td>
+                <td>{{ $data->getTitle() }}</td>
             </tr>
         @endforeach
         </tbody>
@@ -21,6 +21,6 @@
 
     {{-- Pagination --}}
     <div class="d-flex justify-content-center">
-        {{ $userRequests->links() }}
+        {!! $links !!}
     </div>
 @endsection

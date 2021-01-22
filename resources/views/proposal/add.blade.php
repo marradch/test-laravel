@@ -1,7 +1,7 @@
 @extends('layouts/master')
 @section('content')
 
-<form action="/user-request/store" method="POST">
+<form action="/proposal/store" method="POST">
 	@csrf
     <div class="form-group">
     <label for="title">Your name</label>
@@ -36,11 +36,9 @@
     <div class="form-group">
         <label for="code">Enter code: {{ $captchaString }}</label>
 
-        <input name="origin_code" value="{{ $captchaString }}" type="hidden" class="@error('title') is-invalid @enderror form-control">
+        <input name="captcha_code" type="text" class="@error('captcha_code') is-invalid @enderror form-control">
 
-        <input name="entered_code" type="text" class="@error('title') is-invalid @enderror form-control">
-
-        @error('entered_code')
+        @error('captcha_code')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     </div>
