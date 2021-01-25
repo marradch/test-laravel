@@ -174,7 +174,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        App\Modules\Captcha\CaptchaServiceProvider::class,
+        App\Modules\Proposals\ProposalServiceProvider::class,
     ],
 
     /*

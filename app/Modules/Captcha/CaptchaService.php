@@ -2,7 +2,7 @@
 
 namespace App\Modules\Captcha;
 
-class CaptchaService
+class CaptchaService implements CaptchaServiceContract
 {
     protected static $n = 8;
 

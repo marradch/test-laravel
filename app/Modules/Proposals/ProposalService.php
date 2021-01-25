@@ -2,7 +2,7 @@
 
 namespace App\Modules\Proposals;
 
-class ProposalService
+class ProposalService implements ProposalServiceContract
 {
     public function save(Proposal $proposal)
     {
