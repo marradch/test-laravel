@@ -29,4 +29,11 @@ class ProposalRepository
             'links' => $result->links()
         ];
     }
+
+    public function massDelete(int $seconds)
+    {
+        $time = date('U') - $seconds;
+        return ProposalEloquent::where('created_at', '<=' , date('Y-m-d H:i:s', $time))->delete();
+    }
+
 }
