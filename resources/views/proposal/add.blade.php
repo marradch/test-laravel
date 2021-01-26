@@ -34,7 +34,7 @@
     </div>
 
     <div class="form-group">
-        <label for="code">Enter code: {{ $captchaString }}</label>
+        <label for="code">Enter code: {{ $captchaCode }}</label>
 
         <input name="captcha_code" type="text" class="@error('captcha_code') is-invalid @enderror form-control">
 

@@ -4,18 +4,25 @@ namespace App\Modules\Proposals;
 
 class ProposalService implements ProposalServiceContract
 {
-    public function save(Proposal $proposal)
+    protected $proposalRepository;
+
+    public function __construct(ProposalRepository $proposalRepository)
     {
-        (new ProposalRepository())->save($proposal);
+        $this->proposalRepository = $proposalRepository;
     }
 
-    public function getList()
+    public function save(Proposal $proposal)
     {
-        return (new ProposalRepository())->getList();
+        $this->proposalRepository->save($proposal);
+    }
+
+    public function getByPage(int $page = 1)
+    {
+        return $this->proposalRepository->getByPage($page);
     }
 
     public function massDelete(int $seconds)
     {
-        return (new ProposalRepository())->massDelete($seconds);
+        return $this->proposalRepository->massDelete($seconds);
     }
 }

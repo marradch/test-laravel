@@ -13,7 +13,7 @@ class CaptchaServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Modules\Captcha\CaptchaServiceContract', function ($app) {
+        $this->app->bind(\App\Modules\Captcha\CaptchaServiceContract::class, function ($app) {
             return new CaptchaService();
         });
     }

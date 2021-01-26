@@ -4,7 +4,7 @@ namespace App\Modules\Proposals;
 
 class ProposalRepository
 {
-    private static $perPage = 2;
+    private const DEFAULT_ITEMS_ON_PAGE = 2;
 
     public function save(Proposal $proposal)
     {
@@ -15,19 +15,19 @@ class ProposalRepository
         $eloquent->save();
     }
 
-    public function getList()
+    public function getByPage(int $page = 1)
     {
-        $entities = [];
-        $result = ProposalEloquent::paginate(self::$perPage);
+        $proposals = [];
+        $result = ProposalEloquent::query()
+            ->offset(self::DEFAULT_ITEMS_ON_PAGE * ($page - 1))
+            ->limit(self::DEFAULT_ITEMS_ON_PAGE)
+            ->get();
 
         foreach ($result as $item) {
-            $entities[] = new Proposal($item->id, $item->name, $item->title, $item->description);
+            $proposals[] = new Proposal($item->id, $item->name, $item->title, $item->description);
         }
 
-        return [
-            'entities' => $entities,
-            'links' => $result->links()
-        ];
+        return $proposals;
     }
 
     public function massDelete(int $seconds)
@@ -35,5 +35,4 @@ class ProposalRepository
         $time = date('U') - $seconds;
         return ProposalEloquent::where('created_at', '<=' , date('Y-m-d H:i:s', $time))->delete();
     }
-
 }

@@ -6,7 +6,7 @@ interface ProposalServiceContract
 {
     public function save(Proposal $proposal);
 
-    public function getList();
-
     public function massDelete(int $seconds);
+
+    public function getByPage(int $page = 1);
 }

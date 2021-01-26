@@ -23,8 +23,10 @@ class ProposalController extends Controller
 
     public function add(Request $request)
     {
+        $captchaCode = $this->captchaService->generate('proposal.add');
+
         return view('proposal/add', [
-            'captchaString' => $this->captchaService->generate('proposal.add')
+            'captchaCode' => $captchaCode
         ]);
     }
 
@@ -32,20 +34,29 @@ class ProposalController extends Controller
     {
         $data = $request->all();
 
-        $entity = new Proposal(
+        $proposal = new Proposal(
             null,
             $data['name'],
             $data['title'],
             $data['description']
         );
 
-        $this->proposalService->save($entity);
+        $this->proposalService->save($proposal);
 
         return redirect('/');
     }
 
     public function index()
     {
-        return view('proposal/index', $this->proposalService->getList());
+        return view('proposal/index', [
+            'proposals' => $this->proposalService->getByPage()
+        ]);
+    }
+
+    public function indexAjax(int $page = 1)
+    {
+        return view('proposal/list', [
+            'proposals' => $this->proposalService->getByPage($page)
+        ]);
     }
 }
