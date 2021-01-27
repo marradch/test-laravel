@@ -5,17 +5,17 @@ try {
 
 let page = 1;
 
-let finishData = false;
+let lastPageReached = false;
 
 $( "[data-js-proposal-cards]" ).bind('mousewheel', function(e){
-    if (finishData) {
+    if (lastPageReached) {
         return;
     }
 
     let nextPage = page + 1;
 
     $.ajax({
-        url: "/proposal/all-ajax/" + nextPage,
+        url: "/proposal/all-ajax-/" + nextPage,
         async: false
     })
         .done(function( data ) {
@@ -23,7 +23,7 @@ $( "[data-js-proposal-cards]" ).bind('mousewheel', function(e){
                 $( "[data-js-proposal-cards]" ).append( data );
                 page = nextPage;
             } else {
-                finishData = true;
+                lastPageReached = true;
             }
         })
         .fail(function() {

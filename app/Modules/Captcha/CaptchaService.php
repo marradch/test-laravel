@@ -6,7 +6,7 @@ class CaptchaService implements CaptchaServiceContract
 {
     protected static $n = 8;
 
-    public function generate(string $formKey)
+    private function generateCode(): string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
@@ -16,15 +16,38 @@ class CaptchaService implements CaptchaServiceContract
             $randomString .= $characters[$index];
         }
 
-        session([$formKey.'.captcha' => $randomString]);
-
         return $randomString;
     }
 
-    public function validate(string $formKey, string $inputValue)
+    private function generateKey(string $formKey): string
     {
-        $originValue = session($formKey.'.captcha');
+        return $formKey.'.captcha.'.date('U');
+    }
 
-        return $inputValue == $originValue;
+    public function validate(string $formKey, string $inputValue): bool
+    {
+        $originValue = session($formKey);
+
+        $pass = ($inputValue == $originValue);
+
+        if ($pass) {
+            session()->forget($formKey);
+        }
+
+        return $pass;
+    }
+
+    public function build(string $formKey) : string
+    {
+        $captchaCode = $this->generateCode();
+        $formKey = $this->generateKey($formKey);
+
+        session([$formKey => $captchaCode]);
+
+        $widjetString = "<label for=\"captcha_code\">Enter code: $captchaCode</label>\n"
+                        ."<input name=\"captcha_code\" type=\"text\" value=\"\" class=\"form-control\">\n"
+                        ."<input type=\"hidden\" name=\"captcha_key\" value=\"$formKey\">";
+
+        return $widjetString;
     }
 }

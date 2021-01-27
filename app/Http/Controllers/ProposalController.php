@@ -7,27 +7,19 @@ use Illuminate\Http\Request;
 use App\Modules\Proposals\Proposal;
 use App\Modules\Proposals\ProposalServiceContract;
 use App\Http\Requests\StoreProposalRequest;
-use App\Modules\Captcha\CaptchaServiceContract;
 
 class ProposalController extends Controller
 {
-    protected $captchaService;
-
     protected $proposalService;
 
-    public function __construct(CaptchaServiceContract $captchaService, ProposalServiceContract $proposalService)
+    public function __construct(ProposalServiceContract $proposalService)
     {
-        $this->captchaService = $captchaService;
         $this->proposalService = $proposalService;
     }
 
     public function add(Request $request)
     {
-        $captchaCode = $this->captchaService->generate('proposal.add');
-
-        return view('proposal/add', [
-            'captchaCode' => $captchaCode
-        ]);
+        return view('proposal/add');
     }
 
     public function store(StoreProposalRequest $request)
@@ -41,9 +33,13 @@ class ProposalController extends Controller
             $data['description']
         );
 
-        $this->proposalService->save($proposal);
+        try {
+            $this->proposalService->save($proposal);
+        } catch (\Exception $e) {
+            return redirect('/')->with('error','Proposal didn\'t create successfully!');
+        }
 
-        return redirect('/');
+        return redirect('/')->with('success','Proposal created successfully!');
     }
 
     public function index()

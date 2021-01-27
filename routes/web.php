@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/add-proposal', 'ProposalController@add')->name('proposal.add');
 
-Route::post('/proposal/store', 'ProposalController@store');
+Route::post('/proposal/store', 'ProposalController@store')->middleware('is.captcha.valid');
 
 Route::get('/proposal/all', 'ProposalController@index')->name('proposal.all');
 

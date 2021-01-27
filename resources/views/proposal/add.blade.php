@@ -1,3 +1,9 @@
+@php
+    /**
+     * @var $message string
+     */
+@endphp
+
 @extends('layouts/master')
 @section('content')
 
@@ -34,13 +40,9 @@
     </div>
 
     <div class="form-group">
-        <label for="code">Enter code: {{ $captchaCode }}</label>
-
-        <input name="captcha_code" type="text" class="@error('captcha_code') is-invalid @enderror form-control">
-
-        @error('captcha_code')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
+        @php
+            echo app(App\Modules\Captcha\CaptchaServiceContract::class)->build('proposal.add');
+        @endphp
     </div>
 
     <input type="submit" class="btn btn-primary">

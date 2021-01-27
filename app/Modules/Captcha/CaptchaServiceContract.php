@@ -4,7 +4,7 @@ namespace App\Modules\Captcha;
 
 interface CaptchaServiceContract
 {
-    public function generate(string $formKey);
+    public function validate(string $formKey, string $inputValue): bool;
 
-    public function validate(string $formKey, string $inputValue);
+    public function build(string $formKey) : string;
 }

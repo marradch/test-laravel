@@ -18,7 +18,6 @@ class StoreProposalRequest extends FormRequest
             'name' => ['required', 'max:255'],
             'title' => ['required', 'unique:proposals', 'max:255'],
             'description' => ['required'],
-            'captcha_code' => ['required', 'string', new FormCaptcha('proposal.add')]
         ];
     }
 }
