@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Modules\Proposals\Proposal;
 use App\Modules\Proposals\ProposalServiceContract;
 use App\Http\Requests\StoreProposalRequest;
+use Illuminate\Support\Facades\Log;
 
 class ProposalController extends Controller
 {
@@ -35,7 +36,9 @@ class ProposalController extends Controller
 
         try {
             $this->proposalService->save($proposal);
+            throw new \Exception('Деление на ноль.');
         } catch (\Exception $e) {
+            Log::critical('Proposal - save - '.$e->getMessage());
             return redirect('/')->with('error','Proposal didn\'t create successfully!');
         }
 
@@ -45,14 +48,14 @@ class ProposalController extends Controller
     public function index()
     {
         return view('proposal/index', [
-            'proposals' => $this->proposalService->getByPage()
+            'proposals' => $this->proposalService->getByPage(1, 3)
         ]);
     }
 
     public function indexAjax(int $page = 1)
     {
         return view('proposal/list', [
-            'proposals' => $this->proposalService->getByPage($page)
+            'proposals' => $this->proposalService->getByPage($page, 3)
         ]);
     }
 }

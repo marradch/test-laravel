@@ -15,7 +15,7 @@ $( "[data-js-proposal-cards]" ).bind('mousewheel', function(e){
     let nextPage = page + 1;
 
     $.ajax({
-        url: "/proposal/all-ajax-/" + nextPage,
+        url: "/proposal/all-ajax/" + nextPage,
         async: false
     })
         .done(function( data ) {

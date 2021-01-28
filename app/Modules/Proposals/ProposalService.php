@@ -16,9 +16,9 @@ class ProposalService implements ProposalServiceContract
         $this->proposalRepository->save($proposal);
     }
 
-    public function getByPage(int $page = 1): array
+    public function getByPage(int $page = 1, $itemsOnPage = null): array
     {
-        return $this->proposalRepository->getByPage($page);
+        return $this->proposalRepository->getByPage($page, $itemsOnPage);
     }
 
     public function massDelete(int $seconds): int

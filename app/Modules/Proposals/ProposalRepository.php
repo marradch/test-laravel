@@ -15,12 +15,14 @@ class ProposalRepository
         $eloquent->save();
     }
 
-    public function getByPage(int $page = 1): array
+    public function getByPage(int $page = 1, $itemsOnPage = null): array
     {
+        $itemsOnPage = $itemsOnPage ?? self::DEFAULT_ITEMS_ON_PAGE;
+
         $proposals = [];
         $result = ProposalEloquent::query()
-            ->offset(self::DEFAULT_ITEMS_ON_PAGE * ($page - 1))
-            ->limit(self::DEFAULT_ITEMS_ON_PAGE)
+            ->offset($itemsOnPage * ($page - 1))
+            ->limit($itemsOnPage)
             ->get();
 
         foreach ($result as $item) {

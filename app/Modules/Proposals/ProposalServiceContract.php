@@ -8,5 +8,5 @@ interface ProposalServiceContract
 
     public function massDelete(int $seconds): int;
 
-    public function getByPage(int $page = 1): array;
+    public function getByPage(int $page = 1, $itemsOnPage = null): array;
 }
