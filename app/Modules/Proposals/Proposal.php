@@ -20,22 +20,22 @@ class Proposal
         $this->description = $description;
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }

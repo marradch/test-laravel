@@ -6,7 +6,7 @@ class ProposalRepository
 {
     private const DEFAULT_ITEMS_ON_PAGE = 2;
 
-    public function save(Proposal $proposal)
+    public function save(Proposal $proposal): void
     {
         $eloquent = new ProposalEloquent();
         $eloquent->name = $proposal->getName();
@@ -15,7 +15,7 @@ class ProposalRepository
         $eloquent->save();
     }
 
-    public function getByPage(int $page = 1)
+    public function getByPage(int $page = 1): array
     {
         $proposals = [];
         $result = ProposalEloquent::query()
@@ -30,7 +30,7 @@ class ProposalRepository
         return $proposals;
     }
 
-    public function massDelete(int $seconds)
+    public function massDelete(int $seconds): int
     {
         $time = date('U') - $seconds;
         return ProposalEloquent::where('created_at', '<=' , date('Y-m-d H:i:s', $time))->delete();
