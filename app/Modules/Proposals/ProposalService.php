@@ -21,8 +21,8 @@ class ProposalService implements ProposalServiceContract
         return $this->proposalRepository->getByPage($page, $itemsOnPage);
     }
 
-    public function massDelete(int $seconds): int
+    public function deleteOlderThan(\DateInterval $diff): int
     {
-        return $this->proposalRepository->massDelete($seconds);
+        return $this->proposalRepository->deleteOlderThan($diff);
     }
 }

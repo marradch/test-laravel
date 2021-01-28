@@ -32,9 +32,9 @@ class ProposalRepository
         return $proposals;
     }
 
-    public function massDelete(int $seconds): int
+    public function deleteOlderThan(\DateInterval $diff): int
     {
-        $time = date('U') - $seconds;
-        return ProposalEloquent::where('created_at', '<=' , date('Y-m-d H:i:s', $time))->delete();
+        $targetDate = (new \DateTime())->sub($diff)->format('Y-m-d H:i:s');
+        return ProposalEloquent::where('created_at', '<=' , $targetDate)->delete();
     }
 }

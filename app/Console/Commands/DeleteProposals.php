@@ -5,8 +5,6 @@ namespace App\Console\Commands;
 use App\Modules\Proposals\ProposalServiceContract;
 use Illuminate\Console\Command;
 
-use App\Modules\Proposals\ProposalService;
-
 class DeleteProposals extends Command
 {
     /**
@@ -23,7 +21,7 @@ class DeleteProposals extends Command
      */
     protected $description = 'Proposals delete';
 
-    protected $seconds = 3600 * 24;
+    protected $seconds = 3600 * 2;
 
     protected $proposalService;
 
@@ -45,7 +43,7 @@ class DeleteProposals extends Command
      */
     public function handle()
     {
-        $countRows = $this->proposalService->massDelete($this->seconds);
+        $countRows = $this->proposalService->deleteOlderThan(new \DateInterval("PT{$this->seconds}S"));
         $this->info("Deleted $countRows proposals");
     }
 }
