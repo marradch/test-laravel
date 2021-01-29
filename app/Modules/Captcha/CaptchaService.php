@@ -28,11 +28,9 @@ class CaptchaService implements CaptchaServiceContract
     {
         $originValue = session($formKey);
 
-        $pass = ($inputValue == $originValue);
+        $pass = ($inputValue === $originValue);
 
-        if ($pass) {
-            session()->forget($formKey);
-        }
+        session()->forget($formKey);
 
         return $pass;
     }
@@ -44,10 +42,12 @@ class CaptchaService implements CaptchaServiceContract
 
         session([$formKey => $captchaCode]);
 
-        $widjetString = "<label for=\"captcha_code\">Enter code: $captchaCode</label>\n"
-                        ."<input name=\"captcha_code\" type=\"text\" value=\"\" class=\"form-control\">\n"
-                        ."<input type=\"hidden\" name=\"captcha_key\" value=\"$formKey\">";
+        $widgetString = <<<WIDGET
+        <label for="captcha_code">Enter code: $captchaCode</label>
+        <input name="captcha_code" type="text" value="" class="form-control">
+        <input type="hidden" name="captcha_key" value="$formKey">
+WIDGET;
 
-        return $widjetString;
+        return $widgetString;
     }
 }

@@ -36,7 +36,6 @@ class ProposalController extends Controller
 
         try {
             $this->proposalService->save($proposal);
-            throw new \Exception('Деление на ноль.');
         } catch (\Exception $e) {
             Log::critical('Proposal - save - '.$e->getMessage());
             return redirect('/')->with('error','Proposal didn\'t create successfully!');

@@ -9,7 +9,7 @@ use Tests\TestCase;
 class ProposalTest extends TestCase
 {
     /**
-     * The form test example.
+     * The form test.
      *
      * @return void
      */
@@ -36,15 +36,18 @@ class ProposalTest extends TestCase
             'captcha_key' => 'proposal.add.captcha.'.$captchaTime
         ]);
 
+        $response->assertStatus(302);
         $response->assertRedirect('/');
+
+        $response->assertSessionHas('success', 'Proposal created successfully!');
     }
 
     /**
-     * The wrong store test example.
+     * The captcha fail test
      *
      * @return void
      */
-    public function test_wrong()
+    public function test_error_on_missed_captcha()
     {
         $response = $this->post('/proposal/store', [
             'name' => 'Test Name',
@@ -57,11 +60,11 @@ class ProposalTest extends TestCase
     }
 
     /**
-     * The wrong store test example.
+     * The required fields test
      *
      * @return void
      */
-    public function test_wrong_next()
+    public function test_errors_on_empty_required_fields()
     {
         $response = $this->get('/add-proposal');
         $response->assertStatus(200);

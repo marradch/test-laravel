@@ -21,7 +21,7 @@ class DeleteProposals extends Command
      */
     protected $description = 'Proposals delete';
 
-    protected $seconds = 3600 * 2;
+    protected $seconds = 1000;
 
     protected $proposalService;
 
